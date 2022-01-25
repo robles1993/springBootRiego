@@ -15,6 +15,10 @@ public class UsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    public Optional<Usuario> getOne(int id){
+        return usuarioRepository.findById(id);
+    }
+
     public Optional<Usuario> getByNombreUsuario(String nombreUsuario){
         return usuarioRepository.findByNombreUsuario(nombreUsuario);
     }
@@ -26,6 +30,11 @@ public class UsuarioService {
     public boolean existsByEmail(String email){
         return usuarioRepository.existsByEmail(email);
     }
+
+    public boolean existsById(int id){
+        return usuarioRepository.existsById(id);
+    }
+    
 
     public void save(Usuario usuario){
         usuarioRepository.save(usuario);
