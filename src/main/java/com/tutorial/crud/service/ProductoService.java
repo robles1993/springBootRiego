@@ -3,6 +3,8 @@ package com.tutorial.crud.service;
 import com.tutorial.crud.entity.Producto;
 import com.tutorial.crud.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,10 @@ public class ProductoService {
 
     @Autowired
     ProductoRepository productoRepository;
+
+    public Page<Producto> pages(Pageable pageable){
+        return productoRepository.findAll(pageable);
+    }
 
     public List<Producto> list(){
         return productoRepository.findAll();

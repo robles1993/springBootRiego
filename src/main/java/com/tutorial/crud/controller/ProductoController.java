@@ -6,6 +6,9 @@ import com.tutorial.crud.entity.Producto;
 import com.tutorial.crud.service.ProductoService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +23,33 @@ public class ProductoController {
 
     @Autowired
     ProductoService productoService;
+
+    @GetMapping("/pages")
+    public ResponseEntity<Page<Producto>> pages(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "nombre") String order,
+            @RequestParam(defaultValue = "true") boolean asc
+    ){
+        Page<Producto> paises = productoService.pages(
+                PageRequest.of(page, size, Sort.by(order)));
+        if(!asc)
+            paises = productoService.pages(
+                    PageRequest.of(page, size, Sort.by(order).descending()));
+        return new ResponseEntity<Page<Producto>>(paises, HttpStatus.OK);
+    }
+
+
+    // public ResponseEntity<Page<Producto>> pages(
+    //     @RequestParam(defaultValue = "0") int page,
+    //     @RequestParam(defaultValue = "10") int size,
+    //     @RequestParam(defaultValue = "nombre") String order,
+    //     @RequestParam(defaultValue = "true") boolean asc
+
+    // ){
+    //     Page<Producto> productos = productoService.pages(
+    //         PageRequest.of(page, size, Sort.by(order)));
+    // }
 
     @GetMapping("/lista")
     public ResponseEntity<List<Producto>> list(){
