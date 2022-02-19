@@ -39,18 +39,6 @@ public class ProductoController {
         return new ResponseEntity<Page<Producto>>(paises, HttpStatus.OK);
     }
 
-
-    // public ResponseEntity<Page<Producto>> pages(
-    //     @RequestParam(defaultValue = "0") int page,
-    //     @RequestParam(defaultValue = "10") int size,
-    //     @RequestParam(defaultValue = "nombre") String order,
-    //     @RequestParam(defaultValue = "true") boolean asc
-
-    // ){
-    //     Page<Producto> productos = productoService.pages(
-    //         PageRequest.of(page, size, Sort.by(order)));
-    // }
-
     @GetMapping("/lista")
     public ResponseEntity<List<Producto>> list(){
         List<Producto> list = productoService.list();
@@ -82,7 +70,7 @@ public class ProductoController {
             return new ResponseEntity(new Mensaje("el precio debe ser mayor que 0"), HttpStatus.BAD_REQUEST);
         if(productoService.existsByNombre(productoDto.getNombre()))
             return new ResponseEntity(new Mensaje("ese nombre ya existe"), HttpStatus.BAD_REQUEST);
-        Producto producto = new Producto(productoDto.getNombre(), productoDto.getPrecio());
+        Producto producto = new Producto(productoDto.getNombre(), productoDto.getPrecio(), productoDto.getCoordenadas());
         productoService.save(producto);
         return new ResponseEntity(new Mensaje("producto creado"), HttpStatus.OK);
     }

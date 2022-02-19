@@ -12,13 +12,18 @@ public class Producto {
     private int id;
     private String nombre;
     private float precio;
+    private String coordenadas;
+
+
+
 
     public Producto() {
     }
 
-    public Producto(String nombre, float precio) {
+    public Producto(String nombre, float precio, String coordenadas) {
         this.nombre = nombre;
         this.precio = precio;
+        this.coordenadas = coordenadas;
     }
 
     public int getId() {
@@ -43,5 +48,13 @@ public class Producto {
 
     public void setPrecio(float precio) {
         this.precio = precio;
+    }
+
+    public String getCoordenadas() {
+        return coordenadas;
+    }
+
+    public void setCoordenadas(String coordenadas) {
+        this.coordenadas = coordenadas;
     }
 }

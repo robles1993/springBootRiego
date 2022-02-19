@@ -9,13 +9,17 @@ public class ProductoDto {
     private String nombre;
     @Min(0)
     private Float precio;
+    @NotBlank
+    private String coordenadas;
 
     public ProductoDto() {
     }
 
-    public ProductoDto(@NotBlank String nombre, @Min(0) Float precio) {
+    public ProductoDto(@NotBlank String nombre, @Min(0) Float precio, @NotBlank String coordenadas) {
         this.nombre = nombre;
         this.precio = precio;
+        this.coordenadas = coordenadas;
+
     }
 
     public String getNombre() {
@@ -32,5 +36,13 @@ public class ProductoDto {
 
     public void setPrecio(Float precio) {
         this.precio = precio;
+    }
+
+    public String getCoordenadas() {
+        return coordenadas;
+    }
+
+    public void setCoordenadas(String coordenadas) {
+        this.coordenadas = coordenadas;
     }
 }
