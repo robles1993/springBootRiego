@@ -49,4 +49,9 @@ public class ProductoService {
     public boolean existsByNombre(String nombre){
         return productoRepository.existsByNombre(nombre);
     }
+
+
+	public Page<Producto> findBySlug(String slug, Pageable pageable) {
+		return productoRepository.findPostBySlugNative(slug, pageable);
+	}
 }

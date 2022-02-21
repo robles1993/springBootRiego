@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -103,5 +104,19 @@ public class ProductoController {
         return new ResponseEntity(new Mensaje("producto eliminado"), HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<?> search(
+    @RequestParam String filtro, 
+    Pageable pageable,   
+    @RequestParam(defaultValue = "0") int page,
+    @RequestParam(defaultValue = "10") int size,
+    @RequestParam(defaultValue = "nombre") String order,
+    @RequestParam(defaultValue = "true") boolean asc){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(productoService.findBySlug(filtro, pageable));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("{\"error\": \"" + e.getMessage() + "\"}"));
+        }
+    }
 
 }
