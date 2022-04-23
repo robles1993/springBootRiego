@@ -28,7 +28,7 @@ public class ProductoController {
     @GetMapping("/pages")
     public ResponseEntity<Page<Producto>> pages(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "12") int size,
             @RequestParam(defaultValue = "nombre") String order,
             @RequestParam(defaultValue = "true") boolean asc
     ){
@@ -113,7 +113,11 @@ public class ProductoController {
     @RequestParam(defaultValue = "nombre") String order,
     @RequestParam(defaultValue = "true") boolean asc){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(productoService.findBySlug(filtro, pageable));
+            Page<Producto> productos = productoService.findBySlug(filtro,
+                    PageRequest.of(page, size, Sort.by(order).descending()));
+            // return ResponseEntity.status(HttpStatus.OK).body(productoService.findBySlug(filtro, pageable));
+            return new ResponseEntity<Page<Producto>>(productos, HttpStatus.OK);
+
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("{\"error\": \"" + e.getMessage() + "\"}"));
         }

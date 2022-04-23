@@ -17,7 +17,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     Optional<Producto> findByNombre(String nombre);
     boolean existsByNombre(String nombre);
     @Query(
-        value = "SELECT * FROM auth.producto WHERE producto.nombre LIKE %:slug%",
+        value = "SELECT * FROM auth.producto WHERE producto.nombre LIKE %:slug% OR producto.precio LIKE %:slug% OR producto.coordenadas LIKE %:slug%",
         countQuery = "SELECT count(*) FROM auth.producto",
         nativeQuery = true
     )
